@@ -1,0 +1,62 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Driver : MonoBehaviour
+{
+    [SerializeField] float startspeed = 0.1f;
+    [SerializeField] float CurrentSpeed = 0.1f;
+    [SerializeField] float BoostSpeed = 0.2f;
+    [SerializeField] float RegularSpeed = 0.1f;
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Boost"))
+        {
+            CurrentSpeed = BoostSpeed;
+            Debug.Log("Boost Activated");
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        CurrentSpeed = RegularSpeed;
+        Debug.Log("Boost Deactivated");
+    }
+
+
+    void Update()
+    {
+        float steer = 0f;
+        float move = 0f;
+
+
+        if (Keyboard.current.sKey.isPressed)
+        {
+            move = 1f;
+        }
+
+        else if (Keyboard.current.wKey.isPressed)
+        {
+            move = -1f;
+        }
+
+        if (Keyboard.current.dKey.isPressed)
+        {
+            steer = -1f;
+        }
+
+        else if (Keyboard.current.aKey.isPressed)
+        {
+            steer = 1f;
+        }
+
+        float MoveAmount = move * CurrentSpeed * Time.deltaTime;
+        float SteerAmount = steer * startspeed * Time.deltaTime;
+
+        transform.Rotate(0, 0, steer * startspeed);
+        transform.Translate(0, move * CurrentSpeed, 0);
+    }
+}
+
+
+
