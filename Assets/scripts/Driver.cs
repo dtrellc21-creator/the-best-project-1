@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,9 @@ public class Driver : MonoBehaviour
     [SerializeField] float CurrentSpeed = 0.1f;
     [SerializeField] float BoostSpeed = 0.4f;
     [SerializeField] float RegularSpeed = 0.1f;
+
+
+    [SerializeField] TMP_Text BoostText;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
