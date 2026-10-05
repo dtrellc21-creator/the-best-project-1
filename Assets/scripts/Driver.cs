@@ -12,12 +12,21 @@ public class Driver : MonoBehaviour
 
     [SerializeField] TMP_Text BoostText;
 
+
+    void Start()
+    {
+        BoostText.gameObject.SetActive(false);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Boost"))
         {
             CurrentSpeed = BoostSpeed;
             Debug.Log("Boost Activated");
+            Destroy(collision.gameObject);
+            BoostText.gameObject.SetActive(true);
+            BoostText.text = "Boost Activated!";
         }
     }
 
@@ -25,6 +34,7 @@ public class Driver : MonoBehaviour
     {
         CurrentSpeed = RegularSpeed;
         Debug.Log("Boost Deactivated");
+        BoostText.gameObject.SetActive(false);
     }
 
 
